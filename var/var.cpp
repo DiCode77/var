@@ -2408,44 +2408,58 @@ void getline(std::istream &stream, var &other){
 }
 
 
-long var::findr(const char *in, long where){
+long var::findr(const char *in, long &where){
     
-    size_t find = 0;
+    long size = 0;
     size_t len = 0;
     
     
-    while (in[find] != '\0'){
-        find++;
+    while (in[size] != '\0'){
+        size++;
     }
     
     for (long i = where; i < this->length; i++){
         if (this->cs_tr[i] == in[len]){
-            if (find == ++len){
-                return i - (find -1);
+            if (this->cs_tr[i + (size -1)] == in[size -1]){
+                for (long l = 0; l < size; l++){
+                    if (this->cs_tr[i + l] == in[l]){
+                        if (l == (size -1)){
+                            return i;
+                        }
+                    }
+                    else{
+                        break;
+                    }
+                }
             }
         }
         else{
-            if (this->cs_tr[i] != in[len -1]){
-                len = 0;
-            }
+            len = 0;
         }
     }
     return -1;
 }
 
-long var::findr(const var &in, long where){
+long var::findr(const var &in, long &where){
     size_t len = 0;
     
     for (long i = where; i < this->length; i++){
         if (this->cs_tr[i] == in.cs_tr[len]){
-            if (in.length == ++len){
-                return i - (in.length -1);
+            if (this->cs_tr[i + (in.length -1)] == in.cs_tr[in.length -1]){
+                for (long l = 0; l < in.length; l++){
+                    if (this->cs_tr[i + l] == in.cs_tr[l]){
+                        if (l == (in.length -1)){
+                            return i;
+                        }
+                    }
+                    else{
+                        break;
+                    }
+                }
             }
         }
         else{
-            if (this->cs_tr[i] != in.cs_tr[len -1]){
-                len = 0;
-            }
+            len = 0;
         }
     }
     return -1;

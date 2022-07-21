@@ -167,7 +167,9 @@ public:
             
         }
         else if (this->type_id == 6){
-            return this->cs_tr[other];
+            if (this->length >= other){
+                return this->cs_tr[other];
+            }
         }
         return this->c_char = '\0';
     }
@@ -416,8 +418,8 @@ private:
     void override_datatype_less();
     void clea_unused_data(const short&);
     bool resize(const size_t &);
-    long findr(const char*, long);
-    long findr(const var&, long);
+    long findr(const char*, long&);
+    long findr(const var&, long&);
     const char *findr_and_replacer(const char*, const char*);
     const char *findr_and_replacer(const char*, const char*, const char&);
     const char *replacer(long&, const char*);

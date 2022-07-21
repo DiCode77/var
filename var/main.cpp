@@ -4,6 +4,7 @@
 //
 
 #include <iostream>
+#include "var.hpp"
 
 int main(int argc, const char * argv[]) {
     // insert code here...

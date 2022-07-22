@@ -2697,3 +2697,11 @@ const char *var::appen_d(const var &in, const size_t &len){
     return this->cs_tr;
 }
 
+void var::clea_r(){
+    if (this->cs_tr != nullptr){
+        delete [] this->cs_tr;
+        char *new_str = new char[capacit_y]{};
+        this->cs_tr = new_str;
+        this->length = 0;
+    }
+}

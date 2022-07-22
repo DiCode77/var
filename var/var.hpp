@@ -408,6 +408,9 @@ public:
         return appen_d(in, len);
     }
     
+    void clear(){
+        clea_r();
+    }
 private:
     
     void copy_data_str(char*, const char*, const size_t&);
@@ -428,7 +431,7 @@ private:
     const char *appen_d(const var&);
     const char *appen_d(const char*, const size_t&);
     const char *appen_d(const var&, const size_t&);
-    
+    void clea_r();
     
 public:
    // const char *appen_d(const char*);

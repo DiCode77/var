@@ -411,6 +411,19 @@ public:
     void clear(){
         clea_r();
     }
+    
+    const char *erase(){
+        return eras_e();
+    }
+    
+    const char *erase(const size_t start){
+        return eras_e(start);
+    }
+    
+    const char *erase(const size_t start, const size_t end){
+        return eras_e(start, end);
+    }
+    
 private:
     
     void copy_data_str(char*, const char*, const size_t&);
@@ -432,6 +445,9 @@ private:
     const char *appen_d(const char*, const size_t&);
     const char *appen_d(const var&, const size_t&);
     void clea_r();
+    const char *eras_e();
+    const char *eras_e(const size_t&);
+    const char *eras_e(const size_t&, const size_t&);
     
 public:
    // const char *appen_d(const char*);

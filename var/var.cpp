@@ -19,11 +19,11 @@ void var::copy_data_str(char *str, const char *in, const size_t &length){
 
 void var::reall_size(const size_t &len){
     if (!resize(len)){
-        if (len < 15 && capacit_y < 20){
+        if (len < 15 && this->capacit_y < 20){
             this->capacit_y = 20;
         }
         else{
-            this->capacit_y += (len - capacit_y) + 20;
+            this->capacit_y += (len - this->capacit_y) + 20;
         }
     }
 }
@@ -49,8 +49,8 @@ void var::reall_size_str(const size_t &len){
             this->capacit_y = 20;
         }
         else{
-            this->capacit_y += (len - capacit_y) + 20;
-            reall_str(capacit_y);
+            this->capacit_y += (len - this->capacit_y) + 20;
+            reall_str(this->capacit_y);
         }
     }
 }
@@ -233,7 +233,7 @@ var &var::operator+= (const var &other)
     else if (this->type_id == 6 && other.type_id == 6){
         const size_t size = this->length + other.length;
         reall_size(size);
-        char *new_str = new char[capacit_y]{};
+        char *new_str = new char[this->capacit_y]{};
         for (size_t i = 0; i < size; i++){
             if (this->length > i){
                 new_str[i] = this->cs_tr[i];
@@ -2518,7 +2518,7 @@ const char *var::replacer(long &start, const char *in)
         }
         
         reall_size(this->length + lens +1);
-        char *new_str = new char[capacit_y]{};
+        char *new_str = new char[this->capacit_y]{};
         
         for (long i = 0; i < this->length + lens; i++){
             if (i >= start && i < (start + lens)){
@@ -2539,7 +2539,7 @@ const char *var::replacer(long &start, const char *in)
         this->cs_tr = new_str;
     }
     else if(in[0] == '\0'){
-        char *new_str = new char[capacit_y]{};
+        char *new_str = new char[this->capacit_y]{};
         for (long i = 0; i < this->length; i++){
             if(i < start){
                 new_str[i] = this->cs_tr[i];
@@ -2568,7 +2568,7 @@ const char *var::replacer(long &start, long &len, const char *in)
         }
         
         reall_size(this->length + lens +1);
-        char *new_str = new char[capacit_y]{};
+        char *new_str = new char[this->capacit_y]{};
         
         long jump = 0;
         long jum2 = 0;
@@ -2624,7 +2624,7 @@ const char *var::appen_d(const char *in){
             len++;
         }
         reall_size(this->length + len +1);
-        char *new_str = new char[capacit_y]{};
+        char *new_str = new char[this->capacit_y]{};
         for (size_t i = 0; i < (this->length + len); i++){
             if (i < this->length){
                 new_str[i] = this->cs_tr[i];
@@ -2643,7 +2643,7 @@ const char *var::appen_d(const char *in){
 const char *var::appen_d(const var &in){
     if (in.cs_tr[0] != '\0'){
         reall_size(this->length + in.length +1);
-        char *new_str = new char[capacit_y]{};
+        char *new_str = new char[this->capacit_y]{};
         for (size_t i = 0; i < (this->length + in.length); i++){
             if (i < this->length){
                 new_str[i] = this->cs_tr[i];
@@ -2662,7 +2662,7 @@ const char *var::appen_d(const var &in){
 const char *var::appen_d(const char *in, const size_t &len){
     if (in[0] != '\0'){
         reall_size(this->length + len +1);
-        char *new_str = new char[capacit_y]{};
+        char *new_str = new char[this->capacit_y]{};
         for (size_t i = 0; i < (this->length + len); i++){
             if (i < this->length){
                 new_str[i] = this->cs_tr[i];
@@ -2681,7 +2681,7 @@ const char *var::appen_d(const char *in, const size_t &len){
 const char *var::appen_d(const var &in, const size_t &len){
     if (in.cs_tr[0] != '\0'){
         reall_size(this->length + len +1);
-        char *new_str = new char[capacit_y]{};
+        char *new_str = new char[this->capacit_y]{};
         for (size_t i = 0; i < (this->length + len); i++){
             if (i < this->length){
                 new_str[i] = this->cs_tr[i];
@@ -2700,8 +2700,61 @@ const char *var::appen_d(const var &in, const size_t &len){
 void var::clea_r(){
     if (this->cs_tr != nullptr){
         delete [] this->cs_tr;
-        char *new_str = new char[capacit_y]{};
+        char *new_str = new char[this->capacit_y]{};
         this->cs_tr = new_str;
         this->length = 0;
     }
+}
+
+const char *var::eras_e(){
+    if (this->cs_tr != nullptr){
+        delete [] this->cs_tr;
+        char *new_str = new char[this->capacit_y]{};
+        this->cs_tr = new_str;
+        this->length = 0;
+    }
+    return this->cs_tr;
+}
+
+const char *var::eras_e(const size_t &start){
+    if (start > this->length){
+        errno = E2BIG;
+        perror("Specified length, greater than var::string length!");
+        exit(108);
+    }
+    else if (this->cs_tr != nullptr){
+        char *new_str = new char[this->capacit_y]{};
+        size_t i = 0;
+        for (; i < start; i++){
+            new_str[i] = this->cs_tr[i];
+        }
+        new_str[start] = '\0';
+        delete [] this->cs_tr;
+        this->cs_tr = new_str;
+        this->length = i;
+    }
+    return this->cs_tr;
+}
+
+const char *var::eras_e(const size_t &start, const size_t &end){
+    if (start > this->length){
+        errno = E2BIG;
+        perror("Specified length, greater than var::string length!");
+        exit(109);
+    }
+    else if (this->cs_tr != nullptr){
+        char *new_str = new char[this->capacit_y]{};
+        size_t fin = 0;
+        for (size_t i = 0; i < start; i++){
+            new_str[fin++] = this->cs_tr[i];
+        }
+        for (size_t i = (end + start); i < this->length; i++){
+            new_str[fin++] = this->cs_tr[i];
+        }
+        new_str[fin] = '\0';
+        delete [] this->cs_tr;
+        this->cs_tr = new_str;
+        this->length = fin;
+    }
+    return this->cs_tr;
 }

@@ -2407,19 +2407,14 @@ void getline(std::istream &stream, var &other){
     stream >> other;
 }
 
-
-long var::findr(const char *in, long &where){
+long var::findr(const char *in, const long &where){
     
     long size = 0;
-    size_t len = 0;
-    
-    
     while (in[size] != '\0'){
         size++;
     }
-    
     for (long i = where; i < this->length; i++){
-        if (this->cs_tr[i] == in[len]){
+        if (this->cs_tr[i] == in[0]){
             if (this->cs_tr[i + (size -1)] == in[size -1]){
                 for (long l = 0; l < size; l++){
                     if (this->cs_tr[i + l] == in[l]){
@@ -2433,18 +2428,13 @@ long var::findr(const char *in, long &where){
                 }
             }
         }
-        else{
-            len = 0;
-        }
     }
     return -1;
 }
 
-long var::findr(const var &in, long &where){
-    size_t len = 0;
-    
+long var::findr(const var &in, const long &where){
     for (long i = where; i < this->length; i++){
-        if (this->cs_tr[i] == in.cs_tr[len]){
+        if (this->cs_tr[i] == in.cs_tr[0]){
             if (this->cs_tr[i + (in.length -1)] == in.cs_tr[in.length -1]){
                 for (long l = 0; l < in.length; l++){
                     if (this->cs_tr[i + l] == in.cs_tr[l]){
@@ -2458,13 +2448,99 @@ long var::findr(const var &in, long &where){
                 }
             }
         }
-        else{
-            len = 0;
+    }
+    return -1;
+}
+
+long var::rfindr(const char *in){
+    
+    long size = 0;
+    while (in[size] != '\0'){
+        size++;
+    }
+    for (long i = this->length; i >= 0; i--){
+        if (this->cs_tr[i] == in[0]){
+            if (this->cs_tr[i + (size -1)] == in[size -1]){
+                for (long l = 0; l < size; l++){
+                    if (this->cs_tr[i + l] == in[l]){
+                        if (l == (size -1)){
+                            return i;
+                        }
+                    }
+                    else{
+                        break;
+                    }
+                }
+            }
         }
     }
     return -1;
 }
 
+long var::rfindr(const var &in){
+    for (long i = this->length; i >= 0; i--){
+        if (this->cs_tr[i] == in.cs_tr[0]){
+            if (this->cs_tr[i + (in.length -1)] == in.cs_tr[in.length -1]){
+                for (long l = 0; l < in.length; l++){
+                    if (this->cs_tr[i + l] == in.cs_tr[l]){
+                        if (l == (in.length -1)){
+                            return i;
+                        }
+                    }
+                    else{
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    return -1;
+}
+
+long var::rfindr(const char *in, const long &where){
+    
+    long size = 0;
+    while (in[size] != '\0'){
+        size++;
+    }
+    for (long i = where; i >= 0; i--){
+        if (this->cs_tr[i] == in[0]){
+            if (this->cs_tr[i + (size -1)] == in[size -1]){
+                for (long l = 0; l < size; l++){
+                    if (this->cs_tr[i + l] == in[l]){
+                        if (l == (size -1)){
+                            return i;
+                        }
+                    }
+                    else{
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    return -1;
+}
+
+long var::rfindr(const var &in, const long &where){
+    for (long i = where; i >= 0; i--){
+        if (this->cs_tr[i] == in.cs_tr[0]){
+            if (this->cs_tr[i + (in.length -1)] == in.cs_tr[in.length -1]){
+                for (long l = 0; l < in.length; l++){
+                    if (this->cs_tr[i + l] == in.cs_tr[l]){
+                        if (l == (in.length -1)){
+                            return i;
+                        }
+                    }
+                    else{
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    return -1;
+}
 
 const char *var::findr_and_replacer(const char *find, const char *replace){
     if ((find != NULL || find != nullptr) && (replace != NULL || replace != nullptr)){

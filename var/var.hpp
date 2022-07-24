@@ -344,6 +344,22 @@ public:
         return findr(in, where);
     }
     
+    long rfind(const char *in){
+        return rfindr(in);
+    }
+    
+    long rfind(const var in){
+        return rfindr(in);
+    }
+    
+    long rfind(const char *in, const long where){
+        return rfindr(in, where);
+    }
+    
+    long rfind(const var in, const long where){
+        return rfindr(in, where);
+    }
+    
     const char *replace(long start, const char *in){
         return replacer(start, in);
     }
@@ -434,8 +450,12 @@ private:
     void override_datatype_less();
     void clea_unused_data(const short&);
     bool resize(const size_t &);
-    long findr(const char*, long&);
-    long findr(const var&, long&);
+    long findr(const char*, const long&);
+    long findr(const var&, const long&);
+    long rfindr(const char*);
+    long rfindr(const var&);
+    long rfindr(const char*, const long&);
+    long rfindr(const var&, const long&);
     const char *findr_and_replacer(const char*, const char*);
     const char *findr_and_replacer(const char*, const char*, const char&);
     const char *replacer(long&, const char*);

@@ -17,7 +17,7 @@
 #define VAR_CHAR 5
 #define VAR_STRING 6
 
-#define VAR_VERSION "1.1.2"
+#define VAR_VERSION "1.1.3"
 
 class var
 {

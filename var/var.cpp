@@ -2848,3 +2848,171 @@ const char *var::eras_e(const size_t &start, const size_t &end){
     }
     return this->cs_tr;
 }
+
+char &var::operator[] (const size_t &other)
+{
+    if (this->type_id == 1){
+        
+    }
+    else if (this->type_id == 2){
+        
+    }
+    else if (this->type_id == 3){
+        
+    }
+    else if (this->type_id == 4){
+        
+    }
+    else if (this->type_id == 5){
+        
+    }
+    else if (this->type_id == 6){
+        if (this->length >= other){
+            return this->cs_tr[other];
+        }
+    }
+    return this->c_char = '\0';
+}
+
+char &var::operator[] (const var &other)
+{
+    if (other.type_id == 1){
+    }
+    else if (this->type_id == 2){
+    }
+    else if (this->type_id == 3){
+    }
+    else if (this->type_id == 4){
+    }
+    else if (this->type_id == 5){
+    }
+    else if (this->type_id == 6){
+        if (other.type_id == 1){
+            return this->cs_tr[other.b_bool];
+        }
+        else if (other.type_id == 2){
+            return this->cs_tr[other.i_int];
+        }
+        else if (other.type_id == 3){
+            return this->cs_tr[other.l_long];
+        }
+    }
+    return this->c_char = '\0';
+}
+
+std::ostream& operator << (std::ostream& out, const var &other)
+{
+    if (other.type_id == 1){
+        out << other.b_bool;
+    }
+    else if (other.type_id == 2){
+        out << other.i_int;
+    }
+    else if (other.type_id == 3){
+        out << other.l_long;
+    }
+    else if (other.type_id == 4){
+        out << other.d_double;
+    }
+    else if (other.type_id == 5){
+        out << other.c_char;
+    }
+    else if (other.type_id == 6){
+        out << other.cs_tr;
+    }
+    
+    return out;
+}
+
+
+std::istream& operator >> (std::istream& stream, var &other)
+{
+    if (other.type_id == 1){
+        stream >> other.b_bool;
+    }
+    else if (other.type_id == 2){
+        stream >> other.i_int;
+    }
+    else if (other.type_id == 3){
+        stream >> other.l_long;
+    }
+    else if (other.type_id == 4){
+        stream >> other.d_double;
+    }
+    else if (other.type_id == 5){
+        stream >> other.c_char;
+    }
+    else if (other.type_id == 6){
+        char *new_str = new char[]{};
+        stream.getline(new_str, 255);
+        
+        if (other.length != 0){
+            other.length = 0;
+        }
+        
+        while (new_str[other.length] != '\0'){
+            other.length++;
+        }
+        
+        if (other.cs_tr == nullptr){
+            delete [] new_str;
+        }
+        else{
+            other.reall_size_str(other.length +1);
+            other.copy_data_str(other.cs_tr, new_str, other.length);
+            delete [] new_str;
+        }
+    }
+    return stream;
+}
+
+const var var::type_t(var i) const{
+    if (this->type_id == 1){
+        return this->b_bool + i;
+    }
+    else if (this->type_id == 2){
+        return this->i_int + i;
+    }
+    else if (this->type_id == 3){
+        return this->l_long + i;
+    }
+    else if (this->type_id == 4){
+        return this->d_double + i;
+    }
+    else if (this->type_id == 5){
+        return this->c_char + i;
+    }
+    else if (this->type_id == 6){
+    //    return this->cs_tr;
+    }
+    return 0;
+}
+
+const char *var::typeVar() 
+{
+    if (this->type_id == 1)
+    {
+        return "bool";
+    }
+    else if (this->type_id == 2)
+    {
+        return "int";
+    }
+    else if (this->type_id == 3)
+    {
+        return "long";
+    }
+    else if (this->type_id == 4)
+    {
+        return "double";
+    }
+    else if (this->type_id == 5)
+    {
+        return "char";
+    }
+    else if (this->type_id == 6)
+    {
+        return "string";
+    }
+    return "NONE";
+}

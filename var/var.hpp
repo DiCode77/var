@@ -174,7 +174,31 @@ public:
         return this->c_char = '\0';
     }
     
-
+    char &operator[] (const var &other)
+    {
+        if (other.type_id == 1){
+        }
+        else if (this->type_id == 2){
+        }
+        else if (this->type_id == 3){
+        }
+        else if (this->type_id == 4){
+        }
+        else if (this->type_id == 5){
+        }
+        else if (this->type_id == 6){
+            if (other.type_id == 1){
+                return this->cs_tr[other.b_bool];
+            }
+            else if (other.type_id == 2){
+                return this->cs_tr[other.i_int];
+            }
+            else if (other.type_id == 3){
+                return this->cs_tr[other.l_long];
+            }
+        }
+        return this->c_char = '\0';
+    }
     
     bool operator< (const var &other);
     
@@ -287,6 +311,9 @@ public:
         return this->c_char;
     }
     
+    const var type_t(){
+        return this->i_int;
+    }
 
     const char *typeVar()
     {
@@ -327,9 +354,14 @@ public:
         return this->capacit_y;
     }
     
-    const size_t size()
+    const size_t size() const
     {
         return this->length;
+    }
+    
+    const int size_i() const
+    {
+        return (int)this->length;
     }
     
     void setType(const short &in){

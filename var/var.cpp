@@ -229,6 +229,20 @@ var &var::operator+= (const var &other)
     else if (this->type_id == 6 && other.type_id == 4){
     }
     else if (this->type_id == 6 && other.type_id == 5){
+        if (other.c_char != '\0'){
+            reall_size(this->length +1);
+            char *new_str = new char[this->capacit_y]{};
+            for (size_t i = 0; i < this->length; i++){
+                new_str[i] = this->cs_tr[i];
+            }
+            new_str[this->length] = other.c_char;
+            this->length++;
+            delete [] this->cs_tr;
+            this->cs_tr = new_str;
+        }
+        else{
+            this->cs_tr[this->length] = '\0';
+        }
     }
     else if (this->type_id == 6 && other.type_id == 6){
         const size_t size = this->length + other.length;

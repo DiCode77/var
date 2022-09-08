@@ -16,6 +16,7 @@
 #define VAR_DOUBLE 4
 #define VAR_CHAR 5
 #define VAR_STRING 6
+#define VAR_STRING_STR ""
 
 #define VAR_VERSION "1.1.3"
 

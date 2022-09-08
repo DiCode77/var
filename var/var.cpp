@@ -101,6 +101,9 @@ var &var::operator= (const var &other){
         if (this->cs_tr != nullptr || other.cs_tr != nullptr){
             this->length = other.length;
             reall_size_str(this->length +1);
+            if (this->cs_tr == nullptr && other.cs_tr != nullptr){
+                this->cs_tr = new char[this->capacit_y]{};
+            }
             copy_data_str(this->cs_tr, other.cs_tr, this->length +1);
         }
     }

@@ -2791,11 +2791,28 @@ const char *var::appen_d(const var &in, const size_t &len){
 }
 
 void var::clea_r(){
-    if (this->cs_tr != nullptr){
-        delete [] this->cs_tr;
-        char *new_str = new char[this->capacit_y]{};
-        this->cs_tr = new_str;
-        this->length = 0;
+    if (this->type_id == 1){
+        this->b_bool = false;
+    }
+    else if (this->type_id == 2){
+        this->i_int = 0;
+    }
+    else if (this->type_id == 3){
+        this->l_long = 0;
+    }
+    else if (this->type_id == 4){
+        this->d_double = 0;
+    }
+    else if (this->type_id == 5){
+        this->c_char = '\0';
+    }
+    else if (this->type_id == 6){
+        if (this->cs_tr != nullptr){
+            delete [] this->cs_tr;
+            char *new_str = new char[this->capacit_y]{};
+            this->cs_tr = new_str;
+            this->length = 0;
+        }
     }
 }
 

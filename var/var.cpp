@@ -3019,3 +3019,12 @@ const char *var::typeVar()
     }
     return "NONE";
 }
+
+void print(const var &in){
+    std::cout << in;
+}
+
+void print(const var &in, const char *str){
+    std::cout << in << str;
+}
+

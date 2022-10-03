@@ -18,12 +18,11 @@
 #define VAR_STRING 6
 #define VAR_STRING_STR ""
 
-#define VAR_VERSION "1.1.3"
+#define VAR_VERSION "1.1.4"
 
 class var
 {
 private:
-    
     bool b_bool;
     int i_int;
     long l_long;
@@ -32,7 +31,6 @@ private:
     char *cs_tr;
     
 private:
-    
     short type_id;
     size_t length;
     size_t capacit_y;
@@ -225,6 +223,7 @@ public:
     }
     
     void setType(const short &in){
+        clea_unused_data(this->type_id);
         this->type_id = in;
     }
     
@@ -373,5 +372,9 @@ public:
 };
 
 void getline(std::istream &stream, var &other);
+
+void print(const var&);
+void print(const var&, const char*);
+
 
 #endif /* var_hpp */
